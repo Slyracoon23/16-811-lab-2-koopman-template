@@ -1,0 +1,29 @@
+name: ci
+
+# Builds the dev container and checks the given code imports and runs. It does NOT run the test
+# suite, deliberately: `tests/test_method.py` ships failing on purpose — those failures are the
+# reader's to-do list — so a workflow that ran them would be red forever, and a permanently red
+# badge hides the breakage this job exists to catch.
+#
+# What green means here: the image still builds and the code you were handed still works. The
+# weekly run is the point — these pin against libraries that move.
+on:
+  push:
+  pull_request:
+  schedule:
+    - cron: "0 6 * * 1"
+
+jobs:
+  devcontainer:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - name: Build the dev container and check the scaffold still runs
+        uses: devcontainers/ci@v0.3
+        with:
+          push: never
+          runCmd: |
+            set -e
+            python evaluate.py --self-test
+            python -c "import method, synthetic, baselines, reproduce, extend; print('imports ok')"
+            pytest -q tests/test_evaluate.py

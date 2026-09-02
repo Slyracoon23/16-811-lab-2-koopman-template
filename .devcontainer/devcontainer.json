@@ -1,0 +1,11 @@
+{
+  "name": "16-811 lab 2 · koopman",
+  "image": "mcr.microsoft.com/devcontainers/python:3.12-bookworm",
+  "postCreateCommand": "pip install -e '.[dev]'",
+  "customizations": {
+    "vscode": {
+      "extensions": ["ms-python.python", "charliermarsh.ruff"],
+      "settings": { "python.testing.pytestEnabled": true }
+    }
+  }
+}
