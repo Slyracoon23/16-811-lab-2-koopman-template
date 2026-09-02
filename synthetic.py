@@ -25,20 +25,6 @@ def linear_trajectory(a: np.ndarray, steps: int = 400, seed: int = 0):
     return x, a @ x
 
 
-def pendulum(steps: int = 2000, *, dt: float = 0.02, damping: float = 0.1, seed: int = 0):
-    """A damped pendulum, integrated. Nonlinear, and the reason a lift is needed at all.
-
-    Returns snapshot pairs (X, Y) of shape (2, steps): rows are angle and angular velocity.
-    """
-    rng = np.random.default_rng(seed)
-    state = np.array([rng.uniform(-1.0, 1.0), rng.uniform(-0.5, 0.5)])
-    xs, ys = [], []
-    for _ in range(steps):
-        theta, omega = state
-        nxt = np.array([theta + dt * omega, omega + dt * (-np.sin(theta) - damping * omega)])
-        xs.append(state)
-        ys.append(nxt)
-        state = nxt
-        if abs(state[0]) > 10:
-            state = np.array([rng.uniform(-1.0, 1.0), rng.uniform(-0.5, 0.5)])
-    return np.array(xs).T, np.array(ys).T
+# The pendulum moved to `plant.py`, where MuJoCo integrates it. A hand-rolled Euler pendulum was
+# a model of a model: the lab's claim is that a lift beats a linear fit on a *real* plant, and a
+# plant you wrote yourself cannot be evidence for that.

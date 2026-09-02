@@ -3,7 +3,7 @@ name = "lab-koopman"
 version = "0.1.0"
 description = "EDMD: a linear predictor for a nonlinear robot, by least squares"
 requires-python = ">=3.10"
-dependencies = ["numpy>=1.26", "scipy>=1.11", "matplotlib>=3.8"]
+dependencies = ["numpy>=1.26", "scipy>=1.11", "matplotlib>=3.8", "mujoco>=3.1", "osqp>=1.0", "wandb>=0.17"]
 
 [project.optional-dependencies]
 dev = ["pytest>=8.0"]
