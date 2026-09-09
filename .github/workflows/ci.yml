@@ -24,6 +24,6 @@ jobs:
           push: never
           runCmd: |
             set -e
-            python evaluate.py --self-test
-            python -c "import method, synthetic, baselines, reproduce, extend; print('imports ok')"
+            python3 evaluate.py --self-test
+            python3 -c "import method, synthetic, baselines, reproduce, extend; print('imports ok')"
             pytest -q tests/test_evaluate.py
